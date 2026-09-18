@@ -3,238 +3,345 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Builder — ResumeCraft</title>
+<title>Advanced Resume Builder | ResumeCraft</title>
+<meta name="description" content="Create a professional resume with ResumeCraft. Free online resume builder.">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 
+:root{--accent:#5b4df6}
+
 body{
 font-family:Arial,Helvetica,sans-serif;
-background:#f4f5f9;
-color:#181a20;
+background:#f3f5f9;
+color:#171923;
+line-height:1.5
 }
 
+button,input,textarea,select{font:inherit}
+
+button{cursor:pointer}
+
 .topbar{
+height:64px;
 background:#fff;
-border-bottom:1px solid #ddd;
-padding:14px 5%;
+border-bottom:1px solid #e5e7eb;
 display:flex;
-justify-content:space-between;
 align-items:center;
+justify-content:space-between;
+padding:0 4%;
 position:sticky;
 top:0;
-z-index:20;
+z-index:100
 }
 
 .logo{
-color:#5b4df6;
 font-size:21px;
 font-weight:800;
-text-decoration:none;
+color:var(--accent);
+text-decoration:none
 }
 
-.back{
+.home{
+text-decoration:none;
 color:#555;
-text-decoration:none;
-font-size:14px;
+font-size:14px
 }
 
-.container{
-max-width:1250px;
-margin:25px auto;
-padding:0 15px;
+.app{
+max-width:1450px;
+margin:auto;
+padding:20px;
 display:grid;
-grid-template-columns:400px 1fr;
-gap:25px;
+grid-template-columns:390px 1fr;
+gap:20px
 }
 
-.panel{
-background:white;
-padding:22px;
-border-radius:18px;
-box-shadow:0 8px 30px rgba(0,0,0,.06);
+.editor{
+background:#fff;
+border-radius:16px;
+padding:20px;
+box-shadow:0 5px 25px #0000000d
 }
 
-.panel h2{margin-bottom:5px}
-.subtitle{color:#777;font-size:13px;margin-bottom:20px}
+.editor h1{
+font-size:23px;
+margin-bottom:4px
+}
+
+.note{
+font-size:13px;
+color:#777;
+margin-bottom:20px
+}
+
+.tabs{
+display:flex;
+gap:6px;
+overflow:auto;
+padding-bottom:10px;
+margin-bottom:10px
+}
+
+.tab{
+border:1px solid #ddd;
+background:#fafafa;
+padding:8px 11px;
+border-radius:8px;
+font-size:12px;
+white-space:nowrap
+}
+
+.tab.active{
+background:var(--accent);
+color:#fff;
+border-color:var(--accent)
+}
+
+.form-section{display:none}
+.form-section.active{display:block}
 
 label{
 display:block;
-font-size:13px;
-font-weight:bold;
-margin:13px 0 6px;
+font-size:12px;
+font-weight:700;
+margin:13px 0 6px
 }
 
 input,textarea,select{
 width:100%;
-padding:11px;
-border:1px solid #ddd;
-border-radius:9px;
-font-family:inherit;
-font-size:14px;
+border:1px solid #dfe2e8;
+border-radius:8px;
+padding:10px;
 outline:none;
-}
-
-textarea{
-min-height:80px;
-resize:vertical;
+background:#fff
 }
 
 input:focus,textarea:focus,select:focus{
-border-color:#5b4df6;
+border-color:var(--accent)
 }
 
-.section{
-border-top:1px solid #eee;
-margin-top:20px;
-padding-top:18px;
+textarea{
+min-height:90px;
+resize:vertical
 }
 
-.section h3{
-font-size:16px;
-margin-bottom:5px;
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
 }
 
-.controls{
+.add{
+width:100%;
+border:1px dashed #aaa;
+background:#fafafa;
+padding:10px;
+border-radius:8px;
+margin-top:12px;
+font-weight:700
+}
+
+.item{
+border:1px solid #e5e7eb;
+padding:13px;
+border-radius:10px;
+margin-top:12px;
+background:#fafbff
+}
+
+.item-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:5px
+}
+
+.remove{
+border:0;
+background:#fee2e2;
+color:#b91c1c;
+padding:5px 8px;
+border-radius:6px;
+font-size:12px
+}
+
+.photo-box{
+text-align:center;
+padding:10px;
+border:1px dashed #ccc;
+border-radius:10px
+}
+
+.photo-preview{
+width:85px;
+height:85px;
+border-radius:50%;
+object-fit:cover;
+display:none;
+margin:8px auto
+}
+
+.actions{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:10px;
+margin-top:18px
 }
 
-.color-row{
-display:flex;
-gap:10px;
-align-items:center;
-}
-
-.color-row input[type="color"]{
-width:55px;
-height:42px;
-padding:3px;
-}
-
-.btn{
-width:100%;
+.action{
 border:0;
-border-radius:10px;
-padding:13px;
-margin-top:15px;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
+padding:12px;
+border-radius:9px;
+font-weight:700
 }
 
-.download{
-background:#5b4df6;
-color:#fff;
+.save{
+background:var(--accent);
+color:#fff
 }
 
-.clear{
+.reset{
 background:#eee;
-color:#333;
+color:#333
 }
 
-.preview-area{
+.preview-wrap{
 display:flex;
 justify-content:center;
 align-items:flex-start;
+overflow:auto
 }
 
 .resume{
 width:794px;
 min-height:1123px;
-background:white;
-padding:55px;
-box-shadow:0 8px 30px rgba(0,0,0,.12);
+background:#fff;
+box-shadow:0 8px 35px #00000018;
+padding:48px;
+flex-shrink:0
 }
 
-.resume-header{
-border-bottom:3px solid var(--accent,#5b4df6);
-padding-bottom:20px;
-margin-bottom:22px;
+.r-header{
+border-bottom:3px solid var(--accent);
+padding-bottom:18px;
+margin-bottom:22px
 }
 
-.resume-name{
+.r-name{
 font-size:34px;
-font-weight:800;
+font-weight:800
 }
 
-.resume-job{
+.r-title{
+color:var(--accent);
 font-size:17px;
-color:var(--accent,#5b4df6);
-font-weight:bold;
-margin:5px 0 10px;
+font-weight:700;
+margin:3px 0 9px
 }
 
-.contact{
-color:#666;
-font-size:13px;
-line-height:1.7;
+.r-contact{
+font-size:12px;
+color:#666
 }
 
-.resume-section{
-margin-bottom:22px;
+.r-photo{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+float:right;
+display:none
 }
 
-.resume-section h2{
-font-size:15px;
+.r-section{
+margin-bottom:21px;
+clear:both
+}
+
+.r-section h2{
+font-size:14px;
 text-transform:uppercase;
 letter-spacing:1px;
-color:var(--accent,#5b4df6);
+color:var(--accent);
 border-bottom:1px solid #ddd;
-padding-bottom:6px;
-margin-bottom:10px;
+padding-bottom:5px;
+margin-bottom:9px
 }
 
-.resume-section p{
+.r-section p{
+font-size:12.5px;
 white-space:pre-line;
+color:#333
+}
+
+.entry{
+margin-bottom:12px
+}
+
+.entry-title{
 font-size:13px;
-line-height:1.65;
-color:#333;
+font-weight:700
 }
 
-.empty{
-color:#aaa!important;
-font-style:italic;
+.entry-sub{
+font-size:12px;
+color:var(--accent);
+font-weight:700
 }
 
-.template-modern .resume-header{
-text-align:left;
+.entry-text{
+font-size:12px;
+white-space:pre-line;
+margin-top:3px
 }
 
-.template-centered .resume-header{
-text-align:center;
+.skill-list,.language-list{
+display:flex;
+flex-wrap:wrap;
+gap:7px
 }
 
-.template-minimal .resume-header{
-border-bottom:1px solid #bbb;
+.skill{
+border:1px solid #ddd;
+padding:5px 9px;
+border-radius:15px;
+font-size:11px
 }
 
-.template-minimal .resume-name{
-font-size:30px;
-}
+.centered .r-header{text-align:center}
+.minimal .r-header{border-bottom:1px solid #aaa}
+.minimal .r-section h2{color:#222}
 
-@media(max-width:950px){
-.container{grid-template-columns:1fr}
-.resume{width:100%;max-width:794px}
+@media(max-width:1000px){
+.app{grid-template-columns:1fr}
+.preview-wrap{padding-bottom:30px}
 }
 
 @media(max-width:600px){
-.container{margin:12px auto;padding:0 8px}
-.panel{padding:18px}
-.resume{padding:30px 23px}
-.resume-name{font-size:27px}
+.topbar{padding:0 16px}
+.app{padding:10px}
+.editor{padding:15px}
+.resume{
+transform-origin:top center;
+width:794px
+}
+.preview-wrap{
+width:100%;
+overflow-x:auto;
+justify-content:flex-start
+}
 }
 
 @media print{
 body{background:#fff}
-.topbar,.panel{display:none!important}
-.container{display:block;margin:0;padding:0}
-.resume-area{display:block}
+.topbar,.editor{display:none!important}
+.app{display:block;padding:0}
+.preview-wrap{display:block}
 .resume{
-width:100%;
 box-shadow:none;
-margin:0;
+width:100%;
+min-height:auto
 }
 }
 </style>
@@ -243,173 +350,286 @@ margin:0;
 <body>
 
 <header class="topbar">
-<a href="index.html" class="logo">ResumeCraft</a>
-<a href="index.html" class="back">← Home</a>
+<a class="logo" href="index.html">ResumeCraft</a>
+<a class="home" href="index.html">← Home</a>
 </header>
 
-<div class="container">
+<div class="app">
 
-<div class="panel">
+<!-- EDITOR -->
 
-<h2>Build Your Resume</h2>
-<p class="subtitle">Customize your resume and see the changes instantly.</p>
+<div class="editor">
+
+<h1>Build Your Resume</h1>
+<p class="note">Your changes are saved automatically in this browser.</p>
+
+<div class="tabs">
+<button class="tab active" onclick="tab('personal',this)">Personal</button>
+<button class="tab" onclick="tab('experience',this)">Experience</button>
+<button class="tab" onclick="tab('education',this)">Education</button>
+<button class="tab" onclick="tab('skills',this)">Skills</button>
+<button class="tab" onclick="tab('more',this)">More</button>
+<button class="tab" onclick="tab('design',this)">Design</button>
+</div>
+
+
+<!-- PERSONAL -->
+
+<div id="personal" class="form-section active">
+
+<label>Profile Photo</label>
+
+<div class="photo-box">
+
+<input type="file" id="photo" accept="image/*" onchange="photoUpload(event)">
+
+<img id="photoPreview" class="photo-preview">
+
+</div>
+
+<label>Full Name</label>
+<input id="name" placeholder="John Smith" oninput="update()">
+
+<label>Professional Title</label>
+<input id="title" placeholder="Software Developer" oninput="update()">
+
+<div class="row">
+
+<div>
+<label>Email</label>
+<input id="email" placeholder="john@example.com" oninput="update()">
+</div>
+
+<div>
+<label>Phone</label>
+<input id="phone" placeholder="+1 555 123 4567" oninput="update()">
+</div>
+
+</div>
+
+<label>Location</label>
+<input id="location" placeholder="New York, NY" oninput="update()">
+
+<label>Website / Portfolio</label>
+<input id="website" placeholder="yourwebsite.com" oninput="update()">
+
+<label>LinkedIn</label>
+<input id="linkedin" placeholder="linkedin.com/in/johnsmith" oninput="update()">
+
+<label>GitHub</label>
+<input id="github" placeholder="github.com/johnsmith" oninput="update()">
+
+<label>Professional Summary</label>
+<textarea id="summary"
+placeholder="Write a powerful professional summary..."
+oninput="update()"></textarea>
+
+</div>
+
+
+<!-- EXPERIENCE -->
+
+<div id="experience" class="form-section">
+
+<h3>Work Experience</h3>
+
+<div id="experienceList"></div>
+
+<button class="add" onclick="addExperience()">＋ Add Work Experience</button>
+
+</div>
+
+
+<!-- EDUCATION -->
+
+<div id="education" class="form-section">
+
+<h3>Education</h3>
+
+<div id="educationList"></div>
+
+<button class="add" onclick="addEducation()">＋ Add Education</button>
+
+</div>
+
+
+<!-- SKILLS -->
+
+<div id="skills" class="form-section">
+
+<h3>Skills</h3>
+
+<div id="skillsList"></div>
+
+<button class="add" onclick="addSkill()">＋ Add Skill</button>
+
+<h3 style="margin-top:22px">Languages</h3>
+
+<div id="languagesList"></div>
+
+<button class="add" onclick="addLanguage()">＋ Add Language</button>
+
+</div>
+
+
+<!-- MORE -->
+
+<div id="more" class="form-section">
+
+<h3>Certifications</h3>
+
+<textarea id="certifications"
+placeholder="Google UX Certificate&#10;AWS Certified Cloud Practitioner"
+oninput="update()"></textarea>
+
+<h3 style="margin-top:18px">Achievements</h3>
+
+<textarea id="achievements"
+placeholder="Employee of the Month — 2025&#10;Increased sales by 25%"
+oninput="update()"></textarea>
+
+<h3 style="margin-top:18px">Interests</h3>
+
+<textarea id="interests"
+placeholder="Photography, Travel, Reading"
+oninput="update()"></textarea>
+
+</div>
+
+
+<!-- DESIGN -->
+
+<div id="design" class="form-section">
 
 <label>Resume Template</label>
 
-<select id="template" onchange="updateResume()">
-<option value="template-modern">Modern</option>
-<option value="template-centered">Professional Centered</option>
-<option value="template-minimal">Minimal</option>
+<select id="template" onchange="update()">
+<option value="modern">Modern</option>
+<option value="centered">Professional Centered</option>
+<option value="minimal">Minimal</option>
 </select>
 
 <label>Accent Color</label>
 
-<div class="color-row">
-<input id="accent" type="color" value="#5b4df6" onchange="updateResume()">
-<span>Choose your resume color</span>
-</div>
+<input type="color" id="accent" value="#5b4df6" onchange="update()">
 
-<label>Full Name</label>
-<input id="name" placeholder="John Smith" oninput="updateResume()">
+<div class="actions">
 
-<label>Professional Title</label>
-<input id="job" placeholder="Marketing Specialist" oninput="updateResume()">
-
-<label>Email</label>
-<input id="email" type="email" placeholder="john@example.com" oninput="updateResume()">
-
-<label>Phone</label>
-<input id="phone" placeholder="+1 555 123 4567" oninput="updateResume()">
-
-<label>Location</label>
-<input id="location" placeholder="New York, NY" oninput="updateResume()">
-
-<div class="section">
-
-<h3>Professional Summary</h3>
-
-<textarea id="summary"
-placeholder="Write a short professional summary..."
-oninput="updateResume()"></textarea>
-
-</div>
-
-<div class="section">
-
-<h3>Work Experience</h3>
-
-<textarea id="experience"
-placeholder="Company Name — Job Title
-2023 - Present
-
-• Managed daily operations
-• Improved productivity
-• Worked with clients"
-oninput="updateResume()"></textarea>
-
-</div>
-
-<div class="section">
-
-<h3>Education</h3>
-
-<textarea id="education"
-placeholder="Bachelor's Degree — University Name
-2020 - 2024"
-oninput="updateResume()"></textarea>
-
-</div>
-
-<div class="section">
-
-<h3>Skills</h3>
-
-<textarea id="skills"
-placeholder="Communication
-Leadership
-Digital Marketing
-Microsoft Office"
-oninput="updateResume()"></textarea>
-
-</div>
-
-<button class="btn download" onclick="downloadPDF()">
-📄 Download / Save as PDF
+<button class="action save" onclick="downloadPDF()">
+📄 Save PDF
 </button>
 
-<button class="btn clear" onclick="clearForm()">
-Clear Form
+<button class="action reset" onclick="resetAll()">
+🗑 Reset
 </button>
 
 </div>
 
-
-<div class="preview-area">
-
-<div class="resume template-modern" id="resume">
-
-<div class="resume-header">
-
-<div class="resume-name" id="previewName">
-Your Name
-</div>
-
-<div class="resume-job" id="previewJob">
-Professional Title
-</div>
-
-<div class="contact">
-
-<span id="previewEmail">email@example.com</span>
-&nbsp; • &nbsp;
-<span id="previewPhone">+1 000 000 0000</span>
-&nbsp; • &nbsp;
-<span id="previewLocation">Your Location</span>
-
 </div>
 
 </div>
 
 
-<div class="resume-section">
+<!-- PREVIEW -->
 
-<h2>Professional Summary</h2>
+<div class="preview-wrap">
 
-<p id="previewSummary" class="empty">
-Your professional summary will appear here.
-</p>
+<div class="resume modern" id="resume">
+
+<img id="resumePhoto" class="r-photo">
+
+<div class="r-header">
+
+<div class="r-name" id="pName">Your Name</div>
+
+<div class="r-title" id="pTitle">Professional Title</div>
+
+<div class="r-contact" id="pContact">
+email@example.com • +1 000 000 0000 • Your Location
+</div>
 
 </div>
 
 
-<div class="resume-section">
+<div class="r-section" id="summarySection">
+
+<h2>Profile</h2>
+
+<p id="pSummary">Your professional summary will appear here.</p>
+
+</div>
+
+
+<div class="r-section">
 
 <h2>Experience</h2>
 
-<p id="previewExperience" class="empty">
-Your work experience will appear here.
-</p>
+<div id="pExperience">
+<p class="empty">Your work experience will appear here.</p>
+</div>
 
 </div>
 
 
-<div class="resume-section">
+<div class="r-section">
 
 <h2>Education</h2>
 
-<p id="previewEducation" class="empty">
-Your education will appear here.
+<div id="pEducation">
+<p class="empty">Your education will appear here.</p>
+</div>
+
+</div>
+
+
+<div class="r-section">
+
+<h2>Skills</h2>
+
+<div id="pSkills" class="skill-list">
+<span class="skill">Your Skills</span>
+</div>
+
+</div>
+
+
+<div class="r-section" id="languageSection">
+
+<h2>Languages</h2>
+
+<div id="pLanguages" class="language-list"></div>
+
+</div>
+
+
+<div class="r-section">
+
+<h2>Certifications</h2>
+
+<p id="pCertifications" class="empty">
+Your certifications will appear here.
 </p>
 
 </div>
 
 
-<div class="resume-section">
+<div class="r-section">
 
-<h2>Skills</h2>
+<h2>Achievements</h2>
 
-<p id="previewSkills" class="empty">
-Your skills will appear here.
+<p id="pAchievements" class="empty">
+Your achievements will appear here.
+</p>
+
+</div>
+
+
+<div class="r-section">
+
+<h2>Interests</h2>
+
+<p id="pInterests" class="empty">
+Your interests will appear here.
 </p>
 
 </div>
@@ -423,98 +643,605 @@ Your skills will appear here.
 
 <script>
 
-function value(id){
-return document.getElementById(id).value.trim();
+let experiences=[];
+let educations=[];
+let skills=[];
+let languages=[];
+let photoData="";
+
+
+function tab(id,button){
+
+document.querySelectorAll(".form-section").forEach(x=>{
+x.classList.remove("active")
+});
+
+document.getElementById(id).classList.add("active");
+
+document.querySelectorAll(".tab").forEach(x=>{
+x.classList.remove("active")
+});
+
+button.classList.add("active");
+
 }
 
-function setPreview(id,text,placeholder){
 
-const el=document.getElementById(id);
+function addExperience(data={}){
 
-if(text){
-el.textContent=text;
-el.classList.remove("empty");
-}else{
-el.textContent=placeholder;
-el.classList.add("empty");
+experiences.push({
+company:data.company||"",
+role:data.role||"",
+dates:data.dates||"",
+description:data.description||""
+});
+
+renderExperience();
+update();
+
 }
 
+
+function renderExperience(){
+
+const box=document.getElementById("experienceList");
+
+box.innerHTML="";
+
+experiences.forEach((e,i)=>{
+
+box.innerHTML+=`
+
+<div class="item">
+
+<div class="item-head">
+<strong>Experience ${i+1}</strong>
+<button class="remove" onclick="removeExperience(${i})">Remove</button>
+</div>
+
+<label>Company</label>
+<input value="${esc(e.company)}"
+oninput="experiences[${i}].company=this.value;update()"
+placeholder="Company Name">
+
+<label>Job Title</label>
+<input value="${esc(e.role)}"
+oninput="experiences[${i}].role=this.value;update()"
+placeholder="Marketing Manager">
+
+<label>Dates</label>
+<input value="${esc(e.dates)}"
+oninput="experiences[${i}].dates=this.value;update()"
+placeholder="2023 - Present">
+
+<label>Description</label>
+<textarea
+oninput="experiences[${i}].description=this.value;update()"
+placeholder="Describe your responsibilities and achievements...">${esc(e.description)}</textarea>
+
+</div>
+
+`;
+
+});
+
 }
 
-function updateResume(){
 
-setPreview("previewName",value("name"),"Your Name");
+function removeExperience(i){
 
-setPreview("previewJob",value("job"),"Professional Title");
+experiences.splice(i,1);
+renderExperience();
+update();
 
-setPreview("previewEmail",value("email"),"email@example.com");
+}
 
-setPreview("previewPhone",value("phone"),"+1 000 000 0000");
 
-setPreview("previewLocation",value("location"),"Your Location");
+function addEducation(data={}){
 
-setPreview(
-"previewSummary",
-value("summary"),
-"Your professional summary will appear here."
-);
+educations.push({
+school:data.school||"",
+degree:data.degree||"",
+dates:data.dates||"",
+description:data.description||""
+});
 
-setPreview(
-"previewExperience",
-value("experience"),
-"Your work experience will appear here."
-);
+renderEducation();
+update();
 
-setPreview(
-"previewEducation",
-value("education"),
-"Your education will appear here."
-);
+}
 
-setPreview(
-"previewSkills",
-value("skills"),
-"Your skills will appear here."
-);
+
+function renderEducation(){
+
+const box=document.getElementById("educationList");
+
+box.innerHTML="";
+
+educations.forEach((e,i)=>{
+
+box.innerHTML+=`
+
+<div class="item">
+
+<div class="item-head">
+<strong>Education ${i+1}</strong>
+<button class="remove" onclick="removeEducation(${i})">Remove</button>
+</div>
+
+<label>School / University</label>
+<input value="${esc(e.school)}"
+oninput="educations[${i}].school=this.value;update()"
+placeholder="University Name">
+
+<label>Degree</label>
+<input value="${esc(e.degree)}"
+oninput="educations[${i}].degree=this.value;update()"
+placeholder="Bachelor's Degree">
+
+<label>Dates</label>
+<input value="${esc(e.dates)}"
+oninput="educations[${i}].dates=this.value;update()"
+placeholder="2020 - 2024">
+
+<label>Description</label>
+<textarea
+oninput="educations[${i}].description=this.value;update()"
+placeholder="Relevant coursework, achievements...">${esc(e.description)}</textarea>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function removeEducation(i){
+
+educations.splice(i,1);
+renderEducation();
+update();
+
+}
+
+
+function addSkill(data={name:"",level:80}){
+
+skills.push({
+name:data.name||"",
+level:data.level||80
+});
+
+renderSkills();
+update();
+
+}
+
+
+function renderSkills(){
+
+const box=document.getElementById("skillsList");
+
+box.innerHTML="";
+
+skills.forEach((s,i)=>{
+
+box.innerHTML+=`
+
+<div class="item">
+
+<div class="item-head">
+<strong>Skill ${i+1}</strong>
+<button class="remove" onclick="removeSkill(${i})">Remove</button>
+</div>
+
+<label>Skill Name</label>
+
+<input value="${esc(s.name)}"
+oninput="skills[${i}].name=this.value;update()"
+placeholder="JavaScript">
+
+<label>Skill Level: <span id="level${i}">${s.level}%</span></label>
+
+<input type="range" min="0" max="100"
+value="${s.level}"
+oninput="skills[${i}].level=this.value;document.getElementById('level${i}').textContent=this.value+'%';update()">
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function removeSkill(i){
+
+skills.splice(i,1);
+renderSkills();
+update();
+
+}
+
+
+function addLanguage(data={}){
+
+languages.push({
+name:data.name||"",
+level:data.level||"Professional"
+});
+
+renderLanguages();
+update();
+
+}
+
+
+function renderLanguages(){
+
+const box=document.getElementById("languagesList");
+
+box.innerHTML="";
+
+languages.forEach((l,i)=>{
+
+box.innerHTML+=`
+
+<div class="item">
+
+<div class="item-head">
+<strong>Language ${i+1}</strong>
+<button class="remove" onclick="removeLanguage(${i})">Remove</button>
+</div>
+
+<label>Language</label>
+
+<input value="${esc(l.name)}"
+oninput="languages[${i}].name=this.value;update()"
+placeholder="English">
+
+<label>Level</label>
+
+<select onchange="languages[${i}].level=this.value;update()">
+
+<option ${l.level=="Native"?"selected":""}>Native</option>
+<option ${l.level=="Fluent"?"selected":""}>Fluent</option>
+<option ${l.level=="Professional"?"selected":""}>Professional</option>
+<option ${l.level=="Intermediate"?"selected":""}>Intermediate</option>
+<option ${l.level=="Basic"?"selected":""}>Basic</option>
+
+</select>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+function removeLanguage(i){
+
+languages.splice(i,1);
+renderLanguages();
+update();
+
+}
+
+
+function photoUpload(event){
+
+const file=event.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+photoData=e.target.result;
+
+document.getElementById("photoPreview").src=photoData;
+document.getElementById("photoPreview").style.display="block";
+
+update();
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+
+function update(){
+
+const name=get("name")||"Your Name";
+const title=get("title")||"Professional Title";
+
+document.getElementById("pName").textContent=name;
+document.getElementById("pTitle").textContent=title;
+
+let contact=[];
+
+if(get("email"))contact.push(get("email"));
+if(get("phone"))contact.push(get("phone"));
+if(get("location"))contact.push(get("location"));
+
+document.getElementById("pContact").textContent=
+contact.length?contact.join(" • "):
+"email@example.com • +1 000 000 0000 • Your Location";
+
+
+document.getElementById("pSummary").textContent=
+get("summary")||"Your professional summary will appear here.";
+
+
+let exp="";
+
+experiences.forEach(e=>{
+
+if(e.company||e.role||e.description){
+
+exp+=`
+
+<div class="entry">
+
+<div class="entry-title">${esc(e.role||"Job Title")}</div>
+
+<div class="entry-sub">
+${esc(e.company||"Company Name")}
+${e.dates?" • "+esc(e.dates):""}
+</div>
+
+<div class="entry-text">${esc(e.description)}</div>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById("pExperience").innerHTML=
+exp||'<p class="empty">Your work experience will appear here.</p>';
+
+
+let edu="";
+
+educations.forEach(e=>{
+
+if(e.school||e.degree){
+
+edu+=`
+
+<div class="entry">
+
+<div class="entry-title">${esc(e.degree||"Degree")}</div>
+
+<div class="entry-sub">
+${esc(e.school||"University")}
+${e.dates?" • "+esc(e.dates):""}
+</div>
+
+<div class="entry-text">${esc(e.description)}</div>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById("pEducation").innerHTML=
+edu||'<p class="empty">Your education will appear here.</p>';
+
+
+let skillHTML="";
+
+skills.forEach(s=>{
+
+if(s.name){
+
+skillHTML+=`<span class="skill">${esc(s.name)} · ${s.level}%</span>`;
+
+}
+
+});
+
+document.getElementById("pSkills").innerHTML=
+skillHTML||'<span class="skill">Your Skills</span>';
+
+
+let langHTML="";
+
+languages.forEach(l=>{
+
+if(l.name){
+
+langHTML+=`<span class="skill">${esc(l.name)} — ${esc(l.level)}</span>`;
+
+}
+
+});
+
+document.getElementById("pLanguages").innerHTML=langHTML;
+
+
+setText("pCertifications","certifications","Your certifications will appear here.");
+setText("pAchievements","achievements","Your achievements will appear here.");
+setText("pInterests","interests","Your interests will appear here.");
+
 
 const resume=document.getElementById("resume");
 
-resume.className="resume "+document.getElementById("template").value;
+resume.className="resume "+get("template");
 
-resume.style.setProperty(
-"--accent",
-document.getElementById("accent").value
-);
+const accent=document.getElementById("accent").value;
+
+document.documentElement.style.setProperty("--accent",accent);
+
+
+const photo=document.getElementById("resumePhoto");
+
+if(photoData){
+
+photo.src=photoData;
+photo.style.display="block";
+
+}else{
+
+photo.style.display="none";
 
 }
 
-function downloadPDF(){
-window.print();
+
+save();
+
 }
 
-function clearForm(){
 
-const fields=[
-"name",
-"job",
-"email",
-"phone",
-"location",
-"summary",
-"experience",
-"education",
-"skills"
-];
+function setText(preview,input,placeholder){
 
-fields.forEach(function(id){
-document.getElementById(id).value="";
+const value=get(input);
+
+document.getElementById(preview).textContent=value||placeholder;
+
+}
+
+
+function get(id){
+
+return document.getElementById(id)?.value.trim()||"";
+
+}
+
+
+function esc(text){
+
+return String(text||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function save(){
+
+const data={
+name:get("name"),
+title:get("title"),
+email:get("email"),
+phone:get("phone"),
+location:get("location"),
+website:get("website"),
+linkedin:get("linkedin"),
+github:get("github"),
+summary:get("summary"),
+certifications:get("certifications"),
+achievements:get("achievements"),
+interests:get("interests"),
+template:get("template"),
+accent:document.getElementById("accent").value,
+experiences,
+educations,
+skills,
+languages,
+photoData
+};
+
+localStorage.setItem("resumeCraftData",JSON.stringify(data));
+
+}
+
+
+function load(){
+
+const raw=localStorage.getItem("resumeCraftData");
+
+if(!raw){
+
+addExperience();
+addEducation();
+addSkill();
+addLanguage();
+return;
+
+}
+
+try{
+
+const d=JSON.parse(raw);
+
+["name","title","email","phone","location","website","linkedin","github","summary","certifications","achievements","interests"].forEach(id=>{
+
+if(d[id]!==undefined)
+document.getElementById(id).value=d[id];
+
 });
 
-updateResume();
+if(d.template)
+document.getElementById("template").value=d.template;
+
+if(d.accent)
+document.getElementById("accent").value=d.accent;
+
+experiences=d.experiences||[];
+educations=d.educations||[];
+skills=d.skills||[];
+languages=d.languages||[];
+photoData=d.photoData||"";
+
+renderExperience();
+renderEducation();
+renderSkills();
+renderLanguages();
+
+if(photoData){
+
+document.getElementById("photoPreview").src=photoData;
+document.getElementById("photoPreview").style.display="block";
 
 }
 
-updateResume();
+update();
+
+}catch(e){
+
+console.log("Could not load saved data");
+
+}
+
+}
+
+
+function resetAll(){
+
+if(!confirm("Clear your entire resume?"))return;
+
+localStorage.removeItem("resumeCraftData");
+
+location.reload();
+
+}
+
+
+function downloadPDF(){
+
+window.print();
+
+}
+
+
+load();
 
 </script>
 
