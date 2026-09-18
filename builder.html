@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Resume Builder - ResumeCraft</title>
+<title>Resume Builder — ResumeCraft</title>
 
 <style>
 *{
@@ -16,14 +16,13 @@
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:#f4f5f9;
-  color:#171923;
+  color:#181a20;
 }
 
-/* HEADER */
-.header{
+.topbar{
   background:#fff;
   border-bottom:1px solid #ddd;
-  padding:15px 5%;
+  padding:14px 5%;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -34,70 +33,57 @@ body{
 
 .logo{
   color:#5b4df6;
-  font-size:22px;
+  font-size:21px;
   font-weight:800;
   text-decoration:none;
 }
 
-.header button{
-  border:0;
-  background:#5b4df6;
-  color:white;
-  padding:10px 16px;
-  border-radius:9px;
-  font-weight:bold;
+.back{
+  color:#555;
+  text-decoration:none;
+  font-size:14px;
 }
 
-/* LAYOUT */
 .container{
-  max-width:1400px;
-  margin:auto;
-  padding:25px;
+  max-width:1250px;
+  margin:30px auto;
+  padding:0 18px;
   display:grid;
   grid-template-columns:420px 1fr;
   gap:25px;
 }
 
-/* FORM */
-.form-box{
+.panel{
   background:white;
-  padding:24px;
-  border-radius:16px;
-  box-shadow:0 5px 25px rgba(0,0,0,.06);
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
 }
 
-.form-box h1{
-  font-size:26px;
+.panel h2{
+  font-size:24px;
   margin-bottom:5px;
 }
 
 .subtitle{
   color:#777;
   font-size:14px;
-  margin-bottom:25px;
-}
-
-.section-title{
-  font-size:17px;
-  font-weight:800;
-  margin:24px 0 12px;
-  padding-bottom:8px;
-  border-bottom:1px solid #eee;
+  margin-bottom:22px;
 }
 
 label{
   display:block;
   font-size:13px;
-  font-weight:bold;
-  margin:12px 0 6px;
+  font-weight:700;
+  margin:15px 0 7px;
 }
 
 input,
 textarea{
   width:100%;
   border:1px solid #ddd;
-  border-radius:8px;
-  padding:11px;
+  border-radius:9px;
+  padding:12px;
   font-size:14px;
   outline:none;
   font-family:inherit;
@@ -109,22 +95,42 @@ textarea:focus{
 }
 
 textarea{
-  min-height:85px;
+  min-height:90px;
   resize:vertical;
 }
 
-.button{
-  width:100%;
-  border:0;
-  padding:13px;
-  border-radius:9px;
-  background:#5b4df6;
-  color:#fff;
-  font-weight:800;
-  margin-top:20px;
+.section{
+  border-top:1px solid #eee;
+  margin-top:22px;
+  padding-top:18px;
 }
 
-/* PREVIEW */
+.section h3{
+  font-size:17px;
+  margin-bottom:8px;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  margin-top:18px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.download{
+  background:#5b4df6;
+  color:white;
+}
+
+.clear{
+  background:#eee;
+  color:#333;
+}
+
 .preview-area{
   display:flex;
   justify-content:center;
@@ -134,105 +140,108 @@ textarea{
 .resume{
   width:794px;
   min-height:1123px;
-  background:#fff;
-  box-shadow:0 8px 35px rgba(0,0,0,.12);
+  background:white;
   padding:55px;
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
 }
 
 .resume-header{
   border-bottom:3px solid #5b4df6;
-  padding-bottom:18px;
-  margin-bottom:25px;
+  padding-bottom:20px;
+  margin-bottom:22px;
 }
 
 .resume-name{
   font-size:34px;
   font-weight:800;
+  margin-bottom:5px;
 }
 
 .resume-job{
-  color:#5b4df6;
   font-size:17px;
-  font-weight:bold;
-  margin-top:5px;
+  color:#5b4df6;
+  font-weight:700;
+  margin-bottom:10px;
 }
 
 .contact{
   color:#666;
-  font-size:12px;
-  margin-top:10px;
-  line-height:1.8;
+  font-size:13px;
+  line-height:1.7;
 }
 
 .resume-section{
-  margin-bottom:23px;
+  margin-bottom:22px;
 }
 
 .resume-section h2{
   font-size:15px;
-  color:#5b4df6;
   text-transform:uppercase;
   letter-spacing:1px;
+  color:#5b4df6;
   border-bottom:1px solid #ddd;
   padding-bottom:6px;
   margin-bottom:10px;
 }
 
 .resume-section p{
-  font-size:12px;
-  color:#444;
-  line-height:1.7;
+  white-space:pre-line;
+  font-size:13px;
+  line-height:1.65;
+  color:#333;
 }
 
-.skills{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.skill{
-  background:#eeeaff;
-  color:#4d40d2;
-  padding:5px 9px;
-  border-radius:5px;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.placeholder{
+.empty{
   color:#aaa;
+  font-style:italic;
 }
 
-/* MOBILE */
-@media(max-width:900px){
+@media(max-width:950px){
+
   .container{
     grid-template-columns:1fr;
   }
 
-  .preview-area{
-    overflow:auto;
-    justify-content:flex-start;
-  }
-
   .resume{
-    min-width:794px;
+    width:100%;
+    max-width:794px;
   }
 }
 
-/* PRINT */
+@media(max-width:600px){
+
+  .container{
+    margin:15px auto;
+    padding:0 10px;
+  }
+
+  .panel{
+    padding:18px;
+  }
+
+  .resume{
+    padding:30px 25px;
+  }
+
+  .resume-name{
+    font-size:27px;
+  }
+}
+
 @media print{
 
   body{
     background:white;
   }
 
-  .header,
-  .form-box{
-    display:none;
+  .topbar,
+  .panel{
+    display:none !important;
   }
 
   .container{
     display:block;
+    margin:0;
     padding:0;
   }
 
@@ -241,10 +250,10 @@ textarea{
   }
 
   .resume{
-    box-shadow:none;
     width:100%;
     min-height:auto;
-    padding:40px;
+    box-shadow:none;
+    margin:0;
   }
 }
 </style>
@@ -252,60 +261,351 @@ textarea{
 
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <a href="index.html" class="logo">ResumeCraft</a>
+<header class="topbar">
 
-  <button onclick="window.print()">
-    Download PDF
-  </button>
+<a href="index.html" class="logo">
+ResumeCraft
+</a>
+
+<a href="index.html" class="back">
+← Back to Home
+</a>
+
 </header>
 
 
 <div class="container">
 
-<!-- ================= FORM ================= -->
+<!-- FORM -->
 
-<div class="form-box">
+<div class="panel">
 
-<h1>Create Your Resume</h1>
+<h2>Build Your Resume</h2>
 
 <p class="subtitle">
-Fill in your information and see your resume update instantly.
+Enter your information and see the resume update instantly.
 </p>
 
 
-<!-- PERSONAL -->
-<div class="section-title">
-Personal Information
-</div>
-
 <label>Full Name</label>
 <input
-  id="name"
-  type="text"
-  placeholder="John Smith"
-  oninput="updateResume()"
+id="name"
+type="text"
+placeholder="John Smith"
+oninput="updateResume()"
 >
+
 
 <label>Professional Title</label>
 <input
-  id="job"
-  type="text"
-  placeholder="Marketing Manager"
-  oninput="updateResume()"
+id="job"
+type="text"
+placeholder="Marketing Specialist"
+oninput="updateResume()"
 >
+
 
 <label>Email</label>
 <input
-  id="email"
-  type="email"
-  placeholder="john@example.com"
-  oninput="updateResume()"
+id="email"
+type="email"
+placeholder="john@example.com"
+oninput="updateResume()"
 >
+
 
 <label>Phone</label>
 <input
-  id="phone"
-  type="text"
-  placeholder
+id="phone"
+type="text"
+placeholder="+1 555 123 4567"
+oninput="updateResume()"
+>
+
+
+<label>Location</label>
+<input
+id="location"
+type="text"
+placeholder="New York, NY"
+oninput="updateResume()"
+>
+
+
+<div class="section">
+
+<h3>Professional Summary</h3>
+
+<textarea
+id="summary"
+placeholder="Write a short professional summary..."
+oninput="updateResume()"
+></textarea>
+
+</div>
+
+
+<div class="section">
+
+<h3>Work Experience</h3>
+
+<textarea
+id="experience"
+placeholder="Company Name — Job Title&#10;2023 - Present&#10;&#10;• Managed daily operations&#10;• Improved team productivity&#10;• Worked with clients"
+oninput="updateResume()"
+></textarea>
+
+</div>
+
+
+<div class="section">
+
+<h3>Education</h3>
+
+<textarea
+id="education"
+placeholder="Bachelor's Degree — University Name&#10;2020 - 2024"
+oninput="updateResume()"
+></textarea>
+
+</div>
+
+
+<div class="section">
+
+<h3>Skills</h3>
+
+<textarea
+id="skills"
+placeholder="Communication&#10;Leadership&#10;Microsoft Office&#10;Digital Marketing"
+oninput="updateResume()"
+></textarea>
+
+</div>
+
+
+<button class="btn download" onclick="downloadPDF()">
+📄 Download / Save as PDF
+</button>
+
+<button class="btn clear" onclick="clearForm()">
+Clear Form
+</button>
+
+</div>
+
+
+<!-- PREVIEW -->
+
+<div class="preview-area">
+
+<div class="resume" id="resume">
+
+<div class="resume-header">
+
+<div class="resume-name" id="previewName">
+Your Name
+</div>
+
+<div class="resume-job" id="previewJob">
+Professional Title
+</div>
+
+<div class="contact">
+
+<span id="previewEmail">
+email@example.com
+</span>
+
+&nbsp; • &nbsp;
+
+<span id="previewPhone">
++1 000 000 0000
+</span>
+
+&nbsp; • &nbsp;
+
+<span id="previewLocation">
+Your Location
+</span>
+
+</div>
+
+</div>
+
+
+<div class="resume-section">
+
+<h2>Professional Summary</h2>
+
+<p id="previewSummary" class="empty">
+Your professional summary will appear here.
+</p>
+
+</div>
+
+
+<div class="resume-section">
+
+<h2>Experience</h2>
+
+<p id="previewExperience" class="empty">
+Your work experience will appear here.
+</p>
+
+</div>
+
+
+<div class="resume-section">
+
+<h2>Education</h2>
+
+<p id="previewEducation" class="empty">
+Your education will appear here.
+</p>
+
+</div>
+
+
+<div class="resume-section">
+
+<h2>Skills</h2>
+
+<p id="previewSkills" class="empty">
+Your skills will appear here.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function value(id){
+
+  return document.getElementById(id).value.trim();
+
+}
+
+
+function setPreview(id, text, placeholder){
+
+  const element = document.getElementById(id);
+
+  if(text){
+
+    element.textContent = text;
+    element.classList.remove("empty");
+
+  }else{
+
+    element.textContent = placeholder;
+    element.classList.add("empty");
+
+  }
+
+}
+
+
+function updateResume(){
+
+  setPreview(
+    "previewName",
+    value("name"),
+    "Your Name"
+  );
+
+  setPreview(
+    "previewJob",
+    value("job"),
+    "Professional Title"
+  );
+
+  setPreview(
+    "previewEmail",
+    value("email"),
+    "email@example.com"
+  );
+
+  setPreview(
+    "previewPhone",
+    value("phone"),
+    "+1 000 000 0000"
+  );
+
+  setPreview(
+    "previewLocation",
+    value("location"),
+    "Your Location"
+  );
+
+  setPreview(
+    "previewSummary",
+    value("summary"),
+    "Your professional summary will appear here."
+  );
+
+  setPreview(
+    "previewExperience",
+    value("experience"),
+    "Your work experience will appear here."
+  );
+
+  setPreview(
+    "previewEducation",
+    value("education"),
+    "Your education will appear here."
+  );
+
+  setPreview(
+    "previewSkills",
+    value("skills"),
+    "Your skills will appear here."
+  );
+
+}
+
+
+function downloadPDF(){
+
+  window.print();
+
+}
+
+
+function clearForm(){
+
+  const fields = [
+    "name",
+    "job",
+    "email",
+    "phone",
+    "location",
+    "summary",
+    "experience",
+    "education",
+    "skills"
+  ];
+
+  fields.forEach(function(id){
+
+    document.getElementById(id).value = "";
+
+  });
+
+  updateResume();
+
+}
+
+
+updateResume();
+
+</script>
+
+</body>
+</html>
